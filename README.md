@@ -2,7 +2,7 @@
 
 Turn your Raspberry Pi 4 (2, 4 or 8Gb model) or [Pi400](https://www.raspberrypi.org/products/raspberry-pi-400/) into a Stellarium star, planet, and constellations viewer! The fastest way to get going is to use the Deploy with balena button (after logging into your free balenaCloud account).
 
-[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balena-io-examples/stellarium)
+[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balenalabs-incubator/stellarium)
 
 ## Description
 This project will run [Stellarium](https://stellarium.org) on your Raspberry Pi, allowing you to explore the night sky<br/>
@@ -34,4 +34,3 @@ This project has been tested to work on the following devices:
 | Raspberry Pi 3b+ (64-bit OS) | :x: |
 | balena Fin | :x: |
 
-# stellarium
