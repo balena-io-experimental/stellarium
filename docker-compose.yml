@@ -1,0 +1,12 @@
+version: '2.1'
+volumes:
+    settings:
+services:
+  stellarium:
+    build: ./stellarium
+    restart: always
+    network_mode: host
+    privileged: true
+    volumes:
+      - 'settings:/data/stellarium'
+    shm_size: '2gb'

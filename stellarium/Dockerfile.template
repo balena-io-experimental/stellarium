@@ -1,0 +1,46 @@
+FROM balenalib/rpi-raspbian
+
+RUN install_packages wget \
+    xserver-xorg \
+    xserver-xorg-legacy \
+    x11-xserver-utils \
+    xterm x11-xserver-utils \
+    xterm \ 
+    xinit \
+    libgtk-3-dev \
+    libnss3-dev \
+    libxss1 \
+    libasound2-dev \
+    nano \
+    openbox \ 
+    stellarium
+
+# Setting working directory
+WORKDIR /usr/src/app
+
+COPY ./start.sh ./
+
+ENV UDEV=1
+
+
+# Add stellarium user
+RUN useradd stellarium -m -s /bin/bash -G root && \
+    groupadd -r -f stellarium && id -u stellarium
+
+RUN mkdir /home/stellarium/.config
+RUN mkdir /home/stellarium/.config/openbox
+COPY ./autostart /home/stellarium/.config/openbox/autostart
+COPY ./rc.xml /home/stellarium/.config/openbox/rc.xml
+RUN mkdir '/home/stellarium/.config/Stellarium Desktop'
+RUN chown -R stellarium:stellarium /home/stellarium
+RUN ln -s /data/stellarium /home/stellarium/projects
+
+COPY ./menu.xml /var/lib/openbox/debian-menu.xml
+
+
+# udev rule to set specific permissions 
+RUN echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0660"' > /etc/udev/rules.d/10-vchiq-permissions.rules
+RUN usermod -a -G audio,video,tty stellarium
+
+ENTRYPOINT ["bash", "start.sh"]
+CMD ["export DISPLAY=:0"]
